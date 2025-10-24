@@ -15,10 +15,6 @@ fun initDatabase() {
         user = dbUser,
         password = dbPassword
     )
-
-    transaction {
-        SchemaUtils.create(Currencies)
-    }
 }
 
 suspend fun loadInitialRates() {

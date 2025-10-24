@@ -1,0 +1,7 @@
+CREATE TABLE currencies (
+    id SERIAL PRIMARY KEY,
+    char_code VARCHAR(3) NOT NULL UNIQUE,
+    name VARCHAR(128) NOT NULL,
+    nominal INTEGER NOT NULL,
+    value DOUBLE PRECISION NOT NULL
+);
