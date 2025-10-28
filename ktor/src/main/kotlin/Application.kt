@@ -3,6 +3,7 @@ package com.example
 import io.ktor.server.application.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
+import io.ktor.server.plugins.cors.routing.*
 import io.ktor.server.plugins.contentnegotiation.*
 import io.ktor.serialization.kotlinx.json.*
 import kotlinx.coroutines.launch
@@ -16,6 +17,10 @@ fun Application.module() {
         json()
     }
 
+    install(CORS) {
+        anyHost()
+    }
+
     initDatabase()
 
     launch {
@@ -23,12 +28,12 @@ fun Application.module() {
     }
 
     routing {
-        get("/currencies") {
+        get("/api/currencies") {
             val currencies = CurrencyService.getAllCurrencies()
             call.respond(currencies)
         }
 
-        get("/currencies/{id}") {
+        get("/api/currencies/{id}") {
             val id = call.parameters["id"]?.toIntOrNull()
             if (id == null) {
                 call.respondText("Invalid ID", status = io.ktor.http.HttpStatusCode.BadRequest)
